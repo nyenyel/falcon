@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BookRequest;
 use App\Http\Resources\BookResource;
+use App\Http\Resources\LibResource;
 use App\Models\Book;
 use App\Models\LibGenre;
 use Illuminate\Http\Request;
@@ -78,5 +79,10 @@ class BookController extends Controller
         //adding the new genre to a different table
         $data = LibGenre::create($validated);
         return response()->json(['message' => 'New Genre Added']);
+    }
+
+    public function getGenre(){
+        //get all genre
+        return LibResource::collection(LibGenre::all());
     }
 }

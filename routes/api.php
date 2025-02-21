@@ -11,4 +11,5 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('book', BookController::class);
 Route::post('add-genre', [BookController::class, 'addGenre']);
+Route::get('get-genre', [BookController::class, 'getGenre']);
 Route::post('search', [SearchController::class, 'search']);
