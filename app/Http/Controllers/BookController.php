@@ -19,6 +19,7 @@ class BookController extends Controller
      */
     public function index()
     {
+        //gets all data
         return BookResource::collection(Book::all()->load($this->relation));
     }
 
@@ -27,6 +28,7 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
+        //add new data
         $newBook = Book::create($request->validated());
         $newBook->load($this->relation);
         return BookResource::make($newBook);
@@ -37,6 +39,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+        //get a single data using their id
         $data = $book->load($this->relation);
         return BookResource::make($data);
     }
@@ -46,6 +49,7 @@ class BookController extends Controller
      */
     public function update(BookRequest $request, Book $book)
     {
+        //updating selected data
         $book->update($request->validated());
         return BookResource::make($book->load($this->relation));
     }
@@ -56,15 +60,22 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         try{
+            //deletiing data
             $book->delete();
             return response()->json(['message' => 'Data Deleted']);
         } catch (IOException $e){
+            //catching error if ever some problem occurs
             return response()->json(['message' => `Failed to delete data due to: $e}`]);
         }
     }
 
     public function addGenre(Request $request){
+        //adding a genre to the database
+
+        //inline validation of required content of the request
         $validated = $request->validate(['desc' => 'required|string']);
+
+        //adding the new genre to a different table
         $data = LibGenre::create($validated);
         return response()->json(['message' => 'New Genre Added']);
     }

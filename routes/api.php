@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,3 +11,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('book', BookController::class);
 Route::post('add-genre', [BookController::class, 'addGenre']);
+Route::post('search', [SearchController::class, 'search']);
